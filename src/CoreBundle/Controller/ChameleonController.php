@@ -477,11 +477,12 @@ abstract class ChameleonController implements ChameleonControllerInterface
      */
     public function PreOutputCallbackFunction(&$sPageContent)
     {
-        static $bHeaderParsed = false;
+        static $headerFound = false;
+
         TPkgCmsEventManager::GetInstance()->NotifyObservers(
             TPkgCmsEvent::GetNewInstance($this, TPkgCmsEvent::CONTEXT_CORE, TPkgCmsEvent::NAME_PRE_OUTPUT_CALLBACK_FUNCTION, array('sPageContent' => $sPageContent)));
 
-        if (!$bHeaderParsed) {
+        if (!$headerFound) {
             // parse and replace header includes, call resource collection
             $sPageContent = $this->injectHeaderIncludes($sPageContent);
         }
@@ -544,13 +545,14 @@ abstract class ChameleonController implements ChameleonControllerInterface
             }
         }
 
-        if (!$bHeaderParsed) {
-            $sPageContent = $this->runExternalResourceCollectorOnPageContent($sPageContent);
+        // TODO/NOTE this also has the logic embedded: "replace everything only as far as currently found" (= "head")
+        $sPageContent = $this->runExternalResourceCollectorOnPageContent($sPageContent);
+        // TODO/NOTE this here only does it for the compact markers - is done for the other markers in injectHeaderIncludes() above...
 
-            if (stripos($sPageContent, '</head>')) {
-                $bHeaderParsed = true;
-            }
+        if (false === $headerFound && false !== \stripos($sPageContent, '</head>')) {
+            $headerFound = true;
         }
+
         $sPageContent = $this->responseVariableReplacer->replaceVariables($sPageContent);
         $this->sGeneratedPage .= $sPageContent;
 
