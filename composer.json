@@ -13,7 +13,7 @@
     ],
     "require": {
         "chameleon-system/sanitycheck-bundle": "~6.2.0",
-        "ckeditor/ckeditor": "4.6.2",
+        "ckeditor/ckeditor": "4.11.2",
         "doctrine/dbal": "~2.5",
         "ext-curl": "*",
         "ext-tidy": "*",
