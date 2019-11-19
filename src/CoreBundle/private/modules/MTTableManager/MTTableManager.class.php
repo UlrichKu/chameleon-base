@@ -463,12 +463,7 @@ class MTTableManager extends TCMSModelBase
         while ($record = $recordList->Next()) {
             $name = $record->GetName();
             if (!empty($name)) {
-                // highlight active record
-                $cssClass = '';
-                if ($record->id === $recordID) {
-                    $cssClass = 'active';
-                }
-                $returnVal[] = ['id' => $record->id, 'name' => $name, 'cssClass' => $cssClass];
+                $returnVal[] = ['id' => $record->id, 'name' => $name, 'cssClass' => ''];
             }
         }
 
