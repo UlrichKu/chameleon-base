@@ -303,3 +303,13 @@ Bootstrap 4 addons.
     }
 }
 
+@media (min-width: 576px) and (max-width: 767px) {
+    /* overwrite bootstrap (for small iframes) */
+
+    .modal-dialog {
+        max-width: initial;
+        margin-left: 1.75rem;
+        margin-right: 1.75rem;
+    }
+}
+
