@@ -337,12 +337,31 @@ legend {
     width: 30px;
 }
 
+.sidebar .nav-dropdown-items .nav-item:first-child .nav-link {
+    padding-top: 0.75rem;
+}
+
+.sidebar .nav-dropdown-items .nav-item:last-child .nav-link {
+    padding-bottom: 0.75rem;
+}
+
 .sidebar .nav-dropdown-items .nav-item {
     background-color: #FFFFFF;
 }
 
 .sidebar .nav-dropdown-items .nav-link {
     color: #000000 !important;
+    padding: .5rem 1rem;
+}
+
+/* Overwrite bogus coreui defaults for minimized state; make spaces/breaking similar to non-minimized. */
+.sidebar-minimized .sidebar .nav-dropdown-items .nav-link {
+    white-space: normal;
+}
+
+.sidebar-minimized .sidebar .nav-dropdown-items .nav-link i {
+    width: 1.09375rem;
+    margin-right: .5rem;
 }
 
 .sidebar .nav-item.selected-entry {
