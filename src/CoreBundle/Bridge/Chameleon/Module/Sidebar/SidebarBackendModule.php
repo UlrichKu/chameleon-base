@@ -183,10 +183,7 @@ class SidebarBackendModule extends \MTPkgViewRendererAbstractModuleMapper
         while (false !== $tdbCategory = $tdbCategoryList->Next()) {
             $menuItems = [];
             $tdbMenuItemList = $tdbCategory->GetFieldCmsMenuItemList();
-            $tdbMenuItemList->ChangeOrderBy([
-                '`cms_menu_item`.`cms_menu_category_id`' => 'ASC',
-                '`cms_menu_item`.`position`' => 'ASC',
-            ]);
+
             while (false !== $tdbMenuItem = $tdbMenuItemList->Next()) {
                 $menuItem = $this->menuItemFactory->createMenuItem($tdbMenuItem);
                 if (null !== $menuItem) {
@@ -196,6 +193,10 @@ class SidebarBackendModule extends \MTPkgViewRendererAbstractModuleMapper
                 }
             }
             if (\count($menuItems) > 0) {
+                \usort($menuItems, function (MenuItem $a, MenuItem $b) {
+                    return \strcmp($a->getName(), $b->getName());
+                });
+
                 $menuCategories[] = new MenuCategory(
                     $tdbCategory->id,
                     $tdbCategory->fieldName,
